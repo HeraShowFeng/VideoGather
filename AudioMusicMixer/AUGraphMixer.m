@@ -6,16 +6,6 @@
 //  Copyright © 2017年 shiwei. All rights reserved.
 //
 
-//这个表不错：https://developer.apple.com/library/content/documentation/MusicAudio/Conceptual/AudioUnitHostingGuide_iOS/UsingSpecificAudioUnits/UsingSpecificAudioUnits.html
-
-//https://developer.apple.com/library/content/technotes/tn2112/_index.html
-
-//例子：https://developer.apple.com/library/content/samplecode/iOSMultichannelMixerTest/Introduction/Intro.html
-
-//https://developer.apple.com/library/content/documentation/MusicAudio/Conceptual/AudioUnitHostingGuide_iOS/Art/audioUnitScopes_2x.png
-
-//抓取audioUnit的渲染数据，用于传输或写入文件：https://stackoverflow.com/questions/13309103/augraph-record-and-play-with-remoteio-and-multichannelmixer
-
 #define recordBus    1
 #define renderBus   0
 

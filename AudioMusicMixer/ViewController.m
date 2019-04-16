@@ -8,8 +8,6 @@
 
 #import "ViewController.h"
 #import "TFMusicListViewController.h"
-#import "TFAudioRecorder.h"
-#import "TFAudioMixer.h"
 #import "TFAudioFileReader.h"
 #import "TFAudioFileWriter.h"
 #import "TFMediaListViewController.h"
@@ -19,8 +17,6 @@
 #define SimultaneousRecordAndMix    1
 #define MixPcmData  1
 
-#define TestTwoFileMix  0
-#define TestOneFileAndRecordVoice    0
 #define TestAUGraphMixer 1      //使用audioUnit graph 实现音频文件和录音混音，再实时播放的需求
 
 @interface ViewController (){
@@ -28,21 +24,9 @@
     TFMediaData *_selectedMusic;
     TFAudioFileReader *_fileReader;
     
-#if TestTwoFileMix
-    TFMediaData *_selectedMusic2;
-    TFAudioFileReader *_fileReader2;
-#endif
-    
-#if TestOneFileAndRecordVoice
-    TFAudioRecorder *_recorder;
-#endif
-    
-#if TestAUGraphMixer
     TFMediaData *_selectedMusic2;
     AUGraphMixer * _AUGraphMixer;
-#endif
 
-    TFAudioMixer *_mixer;
     TFAudioFileWriter *_writer;
     
     NSString *_curRecordPath;
@@ -72,13 +56,6 @@
     if ([segue.identifier isEqualToString:@"selectMusic"]) {
         TFMusicListViewController *destVC = segue.destinationViewController;
         destVC.selectMusicConpletionHandler = ^(TFMediaData *music){
-            
-#if TestOneFileAndRecordVoice
-            _selectedMusic = music;
-            _musicLabel.text = music.filename;
-#endif
-            
-#if TestTwoFileMix || TestAUGraphMixer
             if (!_selectedMusic) {
                 _selectedMusic = music;
                 _musicLabel.text = [NSString stringWithFormat:@"music1: %@\nmusic2: ~",music.filename];
@@ -86,39 +63,16 @@
                 _selectedMusic2 = music;
                 _musicLabel.text = [NSString stringWithFormat:@"music1: %@\nmusic2: %@",_selectedMusic.filename,_selectedMusic2.filename];
             }
-#endif
         };
     }
 }
 
 -(BOOL)mixRuning{
-    
-#if TestTwoFileMix
-    return _mixer.runing;
-#endif
-    
-#if TestOneFileAndRecordVoice
-    return _recorder.recording;
-#endif
-    
-#if TestAUGraphMixer
     return _AUGraphMixer.isRuning;
-#endif
 }
 
 - (IBAction)recordOrStop:(UIButton *)button {
-    
-#if TestTwoFileMix
-    [self twoFileStartOrStop:button];
-#endif
-    
-#if TestOneFileAndRecordVoice
-    [self oneFileStartOrStop:button];
-#endif
-    
-#if TestAUGraphMixer
     [self AUGraphMixerStartOrStop:button];
-#endif
     
     if ([self mixRuning]) {
         [button setTitle:@"stop" forState:(UIControlStateNormal)];
@@ -127,67 +81,6 @@
     }
 }
 
-#if TestOneFileAndRecordVoice
--(void)oneFileStartOrStop:(UIButton *)sender{
-    if ([self mixRuning]) {
-        [_recorder stop];
-        [_writer close];
-    }else{
-        _mixer = [[TFAudioMixer alloc] init];
-        
-        _fileReader = [[TFAudioFileReader alloc] init];
-        _fileReader.filePath = _selectedMusic.filePath;
-        _mixer.pullAudioSource = _fileReader;
-        
-        _writer = [[TFAudioFileWriter alloc] init];
-        _writer.filePath = [self nextRecordPath];
-        _writer.fileType = kAudioFileCAFType;
-        [_mixer addTarget:_writer];
-
-        _recorder = [[TFAudioRecorder alloc] init];
-        [_recorder addTarget:_mixer inputIndex:0];
-        [_recorder start];
-    }
-}
-
-#endif
-
-#if TestTwoFileMix
--(void)twoFileStartOrStop:(UIButton *)sender{
-    if ([self mixRuning]) {
-        [_mixer stop];
-        [_writer close];
-    }else{
-        
-        _mixer = [[TFAudioMixer alloc] init];
-        
-        _fileReader = [[TFAudioFileReader alloc] init];
-        _fileReader.filePath = _selectedMusic.filePath;
-        _mixer.pullAudioSource = _fileReader;
-        
-        _writer = [[TFAudioFileWriter alloc] init];
-        _writer.filePath = [self nextRecordPath];
-        _writer.fileType = kAudioFileCAFType;
-        [_mixer addTarget:_writer];
-        
-        _fileReader2= [[TFAudioFileReader alloc] init];
-        _fileReader2.filePath = _selectedMusic2.filePath;
-        _mixer.pullAudioSource2 = _fileReader2;
-        
-        if (_selectedMusic.duration > _selectedMusic2.duration) {
-            _fileReader2.isRepeat = YES;
-        }else{
-            _fileReader.isRepeat = YES;
-        }
-        
-        _mixer.sourceType = TFAudioMixerSourceTypeTwoPull;
-        [_mixer start];
-    }
-}
-
-#endif
-
-#if TestAUGraphMixer
 -(void)AUGraphMixerStartOrStop:(UIButton *)sender{
     if ([self mixRuning]) {
         [_AUGraphMixer stop];
@@ -252,7 +145,6 @@
         [sender setTitle:@"左声道" forState:(UIControlStateNormal)];
     }
 }
-#endif
 
 -(NSString *)recordHome{
     if (!_recordHome) {
@@ -297,11 +189,9 @@
     [self.navigationController pushViewController:mediaListVC animated:YES];
 }
 
-#if TestAUGraphMixer
 - (IBAction)volumeChanged:(UISlider *)slider {
     NSInteger index = [_volumeSliders indexOfObject:slider];
     [_AUGraphMixer setVolumeAtIndex:index to:slider.value];
 }
-#endif
 
 @end
