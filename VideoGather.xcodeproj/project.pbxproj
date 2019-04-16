@@ -149,6 +149,8 @@
 		188BE5C61FA01CEB006B1CA3 /* TFAudioUnitPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 188BE5C51FA01CEB006B1CA3 /* TFAudioUnitPlayer.m */; };
 		18ED3F301F98CE970083F38F /* TFAACFileWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ED3F2F1F98CE970083F38F /* TFAACFileWriter.m */; };
 		1E2EA7AE2E48DB8AEAE8CA17 /* libPods-VideoGather.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 68CEE9AD81A6357AD09CAB5D /* libPods-VideoGather.a */; };
+		C389A1E022658213000B62A5 /* test.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C389A1DE22658212000B62A5 /* test.mp3 */; };
+		C389A1E322658324000B62A5 /* chushan.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C389A1E222658324000B62A5 /* chushan.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -418,6 +420,8 @@
 		18ED3F2F1F98CE970083F38F /* TFAACFileWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFAACFileWriter.m; sourceTree = "<group>"; };
 		68CEE9AD81A6357AD09CAB5D /* libPods-VideoGather.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VideoGather.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		73C62082D56A8E28A55CE9CB /* Pods-VideoGather.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VideoGather.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VideoGather/Pods-VideoGather.debug.xcconfig"; sourceTree = "<group>"; };
+		C389A1DE22658212000B62A5 /* test.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = test.mp3; sourceTree = "<group>"; };
+		C389A1E222658324000B62A5 /* chushan.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = chushan.mp3; sourceTree = "<group>"; };
 		E4F6AE68AF4C3112AD7C41FB /* Pods-VideoGather.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VideoGather.release.xcconfig"; path = "Pods/Target Support Files/Pods-VideoGather/Pods-VideoGather.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -923,6 +927,8 @@
 				1858C2201FAAC37F00DFBAF1 /* FX084.mp3 */,
 				1858C2211FAAC37F00DFBAF1 /* LuckyDay.mp3 */,
 				1858C2221FAAC37F00DFBAF1 /* SmallFile.mp3 */,
+				C389A1DE22658212000B62A5 /* test.mp3 */,
+				C389A1E222658324000B62A5 /* chushan.mp3 */,
 			);
 			name = music;
 			sourceTree = "<group>";
@@ -1154,7 +1160,7 @@
 					};
 					1858C1F81FAABC2E00DFBAF1 = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = 457J2FRWRF;
+						DevelopmentTeam = W2TP34G2MM;
 						ProvisioningStyle = Automatic;
 					};
 					1880B53B1FB57F9400C652E8 = {
@@ -1228,12 +1234,14 @@
 			files = (
 				1858C2261FAAC37F00DFBAF1 /* LuckyDay.mp3 in Resources */,
 				1858C2231FAAC37F00DFBAF1 /* background.mp3 in Resources */,
+				C389A1E022658213000B62A5 /* test.mp3 in Resources */,
 				1858C2251FAAC37F00DFBAF1 /* FX084.mp3 in Resources */,
 				1858C20B1FAABC2E00DFBAF1 /* LaunchScreen.storyboard in Resources */,
 				1858C2271FAAC37F00DFBAF1 /* SmallFile.mp3 in Resources */,
 				1858C2241FAAC37F00DFBAF1 /* effect2.mp3 in Resources */,
 				1858C2081FAABC2E00DFBAF1 /* Assets.xcassets in Resources */,
 				1858C2061FAABC2E00DFBAF1 /* Main.storyboard in Resources */,
+				C389A1E322658324000B62A5 /* chushan.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1630,8 +1638,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 457J2FRWRF;
+				DEVELOPMENT_TEAM = W2TP34G2MM;
 				INFOPLIST_FILE = AudioMusicMixer/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = shiwei.AudioMusicMixer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1642,8 +1651,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 457J2FRWRF;
+				DEVELOPMENT_TEAM = W2TP34G2MM;
 				INFOPLIST_FILE = AudioMusicMixer/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = shiwei.AudioMusicMixer;
 				PRODUCT_NAME = "$(TARGET_NAME)";

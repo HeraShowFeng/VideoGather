@@ -24,6 +24,9 @@ typedef NS_ENUM(NSInteger, AUGraphMixerChannelType){
 
 @property (nonatomic, assign, getter=isRuning) BOOL runing;
 
+@property (nonatomic, assign) BOOL playBack;
+@property (nonatomic, assign) BOOL onlyOne;
+
 -(void)setupAUGraph;
 
 -(void)start;

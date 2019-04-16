@@ -84,6 +84,8 @@
 }
 
 -(void)setupAUGraph{
+    self.playBack = YES;
+    
     NewAUGraph(&processingGraph);
     
     OSStatus status = 0;
@@ -314,10 +316,16 @@ static OSStatus mixerDataInput(void *inRefCon, AudioUnitRenderActionFlags *ioAct
         [mixer readAudioFile:0 numberFrames:inNumberFrames toBuffer:ioData];
         
     }else if (inBusNumber == RecordUnitSourceIndex){
-        
-        [mixer readRecordedAudio:ioActionFlags timeStamp:inTimeStamp numberFrames:inNumberFrames toBuffer:ioData];
+        if (mixer.playBack) {
+            [mixer readRecordedAudio:ioActionFlags timeStamp:inTimeStamp numberFrames:inNumberFrames toBuffer:ioData];
+        }
     }else if (inBusNumber == SecondAudioFileIndex){
-        [mixer readAudioFile:1 numberFrames:inNumberFrames toBuffer:ioData];
+        // 当两个音乐源，一个为音乐、一个为人声时，进行播放混合，关闭人生音乐，模拟关闭耳返的场景
+        // 发现无人声音乐下，较，之前的两路源：音乐+人声音乐，音乐声音变大了
+        // onlyOne 即是否只有一个音乐源
+        if (!mixer.onlyOne) {
+            [mixer readAudioFile:1 numberFrames:inNumberFrames toBuffer:ioData];
+        }
     }
     
     return 0;

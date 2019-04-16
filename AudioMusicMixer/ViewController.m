@@ -210,6 +210,22 @@
     _AUGraphMixer.outputPath = [self nextRecordPath];
     [_AUGraphMixer setupAUGraph];
 }
+- (IBAction)playbackChange:(UIButton *)sender {
+    sender.selected = !sender.isSelected;
+    if (sender.selected) {
+        _AUGraphMixer.playBack = NO;
+    } else {
+        _AUGraphMixer.playBack = YES;
+    }
+}
+- (IBAction)musicOnlyOne:(UIButton *)sender {
+    sender.selected = !sender.isSelected;
+    if (sender.selected) {
+        _AUGraphMixer.onlyOne = YES;
+    } else {
+        _AUGraphMixer.onlyOne = NO;
+    }
+}
 
 - (IBAction)mixTypeChange:(UIButton *)sender {
     
